@@ -12,7 +12,7 @@
 <body>
 
 <header th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning p-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">Sistema de fidelización de clientes</a>
 			<button class="navbar-toggler" type="button"
@@ -24,13 +24,25 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-					<li class="nav-item"><a class="nav-link" href="listar">Clientes</a></li>
+					<!--li class="nav-item"><a class="nav-link" href="listar">Clientes</a></li>
 					<li class="nav-item"><a class="nav-link" href="premioListar">Premios</a></li>
                                         <li class="nav-item"><a class="nav-link" href="reglaListar">Reglas</a></li>
                                         <li class="nav-item"><a class="nav-link" href="vencListar">Vencimiento</a></li>
                                         <li class="nav-item"><a class="nav-link" href="bolsaPuntosListar">Bolsa de puntos</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="usopuntoscabListar">Uso de puntos</a></li>
-                                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                                        <li class="nav-item"><a class="nav-link" href="usopuntoscabListar">Uso de puntos</a></li-->
+                                      
+                                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                              <a class="dropdown-item" href="listar">Clientes</a>
+                                              <a class="dropdown-item" href="premioListar">Premios</a>
+                                              <a class="dropdown-item" href="reglaListar">Reglas</a>
+                                              <a class="dropdown-item" href="vencListar">Vencimiento</a>
+                                              <a class="dropdown-item" href="bolsaPuntosListar">Bolsa de puntos</a>
+                                              <a class="dropdown-item" href="usopuntoscabListar">Canje de puntos</a>
+                                            </div>
+                                        </li>
+                                        
+                                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reportes</a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                               <a class="dropdown-item" href="#">Uso de puntos</a>
                                               <a class="dropdown-item" href="#">Clientes con puntos a vencer</a>

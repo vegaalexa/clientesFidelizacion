@@ -14,8 +14,22 @@
                 <div class="card-body">
                     <h4 class="card-title">
                         <a th:href="@{/form}" class="btn btn-primary">Agregar cliente</a>
-                        <a th:href="@{/exportarPDf}" class="btn btn-secondary">Exportar a PDF</a>
+                       
                     </h4>
+                    <form class="row g-3" th:action="@{/}">
+                        <div class="col-auto">
+                            <label>Filtar</label> 
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Digite el valor a buscar" required>
+                        </div>
+                        <input type="submit" class="btn btn-secondary mb-2" value="Limpiar">
+                        <div class="col-auto">
+                            <a th:href="@{/exportarPDf}" class="btn btn-success">Exportar a PDF</a>
+                        </div>
+                    </form>
+                    <br>
+               
                     <table class="table table-striped">
                         <thead>
                             <tr>
