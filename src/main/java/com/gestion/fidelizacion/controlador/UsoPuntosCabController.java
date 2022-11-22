@@ -103,7 +103,9 @@ public class UsoPuntosCabController {
 		}
 		
 		String mensaje = (usopuntoscab.getId() != null) ? "Editato con exito" : "Registrado con exito";
-		
+		int puntos_requeridos = usopuntoscab.getPremio().getPuntos_requeridos();
+                System.out.println("************PUNTOS REQUERIDOS*********:"+usopuntoscab.getPremio().getPuntos_requeridos());
+                usopuntoscab.setPuntaje_utilizado(puntos_requeridos);
 		usopuntoscabService.save(usopuntoscab);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensaje);
