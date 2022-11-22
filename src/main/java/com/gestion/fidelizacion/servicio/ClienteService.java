@@ -14,7 +14,7 @@ public interface ClienteService {
         /*para la paginacion*/
 	public Page<Cliente> findAll(Pageable pageable);
 
-	public void save(Cliente empleado);
+	public void save(Cliente cliente);
 
 	public Cliente findOne(Long id);
 
