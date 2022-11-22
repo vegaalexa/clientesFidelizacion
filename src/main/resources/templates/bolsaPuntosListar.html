@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Cliente</th>
                                 <th>Fecha asignacion de puntaje</th>
                                 <th>Fecha caducidad de puntaje</th>
                                 <th>Puntaje asignado</th>
@@ -33,6 +34,7 @@
                         <tbody>
                             <tr th:each="bolsapuntos : ${bolsapuntos}">
                                 <td th:text="${bolsapuntos.id}"></td>
+                                <td th:text="${bolsapuntos.cliente.nombre + ' ' + bolsapuntos.cliente.apellido}"></td>
                                 <td th:text="${bolsapuntos.fecha_asignacion_puntaje}"></td>
                                 <td th:text="${bolsapuntos.fecha_caducidad_puntaje}"></td>
                                 <td th:text="${bolsapuntos.puntaje_asignado}"></td>
