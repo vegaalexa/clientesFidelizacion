@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <h4 class="card-title">
                         <a th:href="@{/form}" class="btn btn-primary">Agregar cliente</a>
+                        <a th:href="@{/exportarPDf}" class="btn btn-secondary">Exportar a PDF</a>
                     </h4>
                     <table class="table table-striped">
                         <thead>
@@ -33,24 +34,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="empleado : ${empleados}">
-                                <td th:text="${empleado.id}"></td>
-                                <td th:text="${empleado.nombre}"></td>
-                                <td th:text="${empleado.apellido}"></td>
-                                <td th:text="${empleado.tipo_doc}"></td>
-                                <td th:text="${empleado.nro_doc}"></td>
-                                <td th:text="${empleado.nacionalidad}"></td>
-                                <td th:text="${empleado.email}"></td>
-                                <td th:text="${empleado.telefono}"></td>
-                                <td th:text="${empleado.fecha_nac}"></td>
+                            <tr th:each="cliente : ${clientes}">
+                                <td th:text="${cliente.id}"></td>
+                                <td th:text="${cliente.nombre}"></td>
+                                <td th:text="${cliente.apellido}"></td>
+                                <td th:text="${cliente.tipo_doc}"></td>
+                                <td th:text="${cliente.nro_doc}"></td>
+                                <td th:text="${cliente.nacionalidad}"></td>
+                                <td th:text="${cliente.email}"></td>
+                                <td th:text="${cliente.telefono}"></td>
+                                <td th:text="${cliente.fecha_nac}"></td>
                                 <td><a class="btn btn-info btn-sm"
-                                        th:href="@{/ver/} + ${empleado.id}">Detalles</a></td>
+                                        th:href="@{/ver/} + ${cliente.id}">Detalles</a></td>
                                 <td sec:authorize="hasRole('ADMIN')"><a
                                         class="btn btn-warning btn-sm"
-                                        th:href="@{/form/} + ${empleado.id}">Editar</a></td>
+                                        th:href="@{/form/} + ${cliente.id}">Editar</a></td>
                                 <td sec:authorize="hasRole('ADMIN')"><a
                                         class="btn btn-danger btn-sm"
-                                        th:href="@{/eliminar/} + ${empleado.id}"
+                                        th:href="@{/eliminar/} + ${cliente.id}"
                                         onclick="return confirm('¿Estás seguro de eliminar al cliente?');">Eliminar</a></td>
                             </tr>
                         </tbody>
