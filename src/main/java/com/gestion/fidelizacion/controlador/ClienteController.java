@@ -29,6 +29,7 @@ import com.gestion.fidelizacion.util.paginacion.PageRender;
 import com.lowagie.text.DocumentException;
 import com.gestion.fidelizacion.servicio.ClienteService;
 import com.gestion.fidelizacion.util.reportes.ClienteExporterPDF;
+import org.springframework.data.repository.query.Param;
 
 @Controller
 public class ClienteController {
@@ -62,15 +63,35 @@ public class ClienteController {
 		return "ver";
 	}
 	
-	@GetMapping({"/listar",""})
+	/*@GetMapping({"/listar",""})
         //@GetMapping({"/","/listar",""})
-	public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo) {
+        //public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo) {
+	public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo,@Param("palabraClave") String palabraClave) {
 		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<Cliente> cliente = clienteService.findAll(pageRequest);
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", cliente);
 		
+                List<Cliente> listaClientes = clienteService.listAll(palabraClave);
+             
 		modelo.addAttribute("titulo","Listado de clientes");
-		modelo.addAttribute("clientes",cliente);
+		modelo.addAttribute("cliente",cliente);
+                modelo.addAttribute("palabraClave",palabraClave);
+		modelo.addAttribute("page", pageRender);
+		
+		return "listar";
+	}*/
+        
+        @GetMapping({"/listar",""})
+	public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo,@Param("palabraClave") String palabraClave) {
+		Pageable pageRequest = PageRequest.of(page, 4);
+		Page<Cliente> cliente = clienteService.findAll(pageRequest);
+		PageRender<Cliente> pageRender = new PageRender<>("/listar", cliente);
+		
+                List<Cliente> listaClientes = clienteService.listAll(palabraClave);
+             
+		modelo.addAttribute("titulo","Listado de clientes");
+		modelo.addAttribute("cliente",listaClientes);
+                modelo.addAttribute("palabraClave",palabraClave);
 		modelo.addAttribute("page", pageRender);
 		
 		return "listar";

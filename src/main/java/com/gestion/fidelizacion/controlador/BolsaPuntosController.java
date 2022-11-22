@@ -2,6 +2,7 @@ package com.gestion.fidelizacion.controlador;
 
 import com.gestion.fidelizacion.entidades.BolsaPuntos;
 import com.gestion.fidelizacion.entidades.Cliente;
+import com.gestion.fidelizacion.repositorios.ClienteRepository;
 import com.gestion.fidelizacion.servicio.BolsaPuntosService;
 import com.gestion.fidelizacion.servicio.ClienteService;
 import java.util.Map;
@@ -33,6 +34,9 @@ public class BolsaPuntosController {
         
         @Autowired
 	private ClienteService clienteService;
+        
+        @Autowired
+        private ClienteRepository clienteRepository;
 	
 	@GetMapping("/bolsaPuntosVer/{id}")
 	public String verDetallesDelaBolsaPuntos(@PathVariable(value = "id") Long id,Map<String,Object> modelo,RedirectAttributes flash) {

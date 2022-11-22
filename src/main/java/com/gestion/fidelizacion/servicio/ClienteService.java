@@ -8,8 +8,10 @@ import org.springframework.data.domain.Pageable;
 import com.gestion.fidelizacion.entidades.Cliente;
 
 public interface ClienteService {
-         /*para listar todos los clientes*/
-	public List<Cliente> findAll();
+        //para listar todos los clientes
+	public List<Cliente> listAll(String palabraClave);
+        
+        public List<Cliente> findAll();
         
         /*para la paginacion*/
 	public Page<Cliente> findAll(Pageable pageable);

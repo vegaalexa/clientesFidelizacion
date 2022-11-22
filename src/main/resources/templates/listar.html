@@ -16,9 +16,9 @@
                         <a th:href="@{/form}" class="btn btn-primary">Agregar cliente</a>
 
                     </h4>
-                    <form class="row g-3" th:action="@{/}">
+                    <form class="row g-3" th:action="@{/listar}">
                         <div class="col-auto">
-                            <label>Filtar</label> 
+                            <label>Filtar: </label> 
                         </div>
                         <div class="col-auto">
                             <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Digite el valor a buscar" required>

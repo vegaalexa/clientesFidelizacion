@@ -3,8 +3,13 @@ package com.gestion.fidelizacion.repositorios;
 //import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.gestion.fidelizacion.entidades.Cliente;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
+    @Query(value = "select * from clientes c where c.nombre like '%N%' or c.apellido like '%V%'", nativeQuery=true)
+    
+    public List<Cliente> findAll(String palabraClave);
 }

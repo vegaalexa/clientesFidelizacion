@@ -17,12 +17,20 @@ public class ClienteServiceImpl implements ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Cliente> findAll() {
-		return (List<Cliente>) clienteRepository.findAll();
+	public List<Cliente> listAll(String palabraClave){
+            if(palabraClave != null){
+                return clienteRepository.findAll(palabraClave);
+            } 
+            
+            return clienteRepository.findAll();
 	}
-
+        
+        @Override
+	@Transactional(readOnly = true)
+        public List<Cliente> findAll(){
+            return clienteRepository.findAll();
+        }
+        
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Cliente> findAll(Pageable pageable) {
@@ -46,5 +54,4 @@ public class ClienteServiceImpl implements ClienteService {
 	public Cliente findOne(Long id) {
 		return clienteRepository.findById(id).orElse(null);
 	}
-	
 }
