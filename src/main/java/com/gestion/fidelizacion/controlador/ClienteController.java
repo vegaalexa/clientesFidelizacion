@@ -41,7 +41,7 @@ public class ClienteController {
 		//Page<Cliente> empleados = clienteService.findAll(pageRequest);
 		//PageRender<Cliente> pageRender = new PageRender<>("/listar", empleados);
 		
-		modelo.addAttribute("titulo","Listado de empleados");
+		modelo.addAttribute("titulo","Listado de clientes");
 		//modelo.addAttribute("empleados",empleados);
 		//modelo.addAttribute("page", pageRender);
 		
@@ -49,15 +49,15 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/ver/{id}")
-	public String verDetallesDelEmpleado(@PathVariable(value = "id") Long id,Map<String,Object> modelo,RedirectAttributes flash) {
-		Cliente empleado = clienteService.findOne(id);
-		if(empleado == null) {
+	public String verDetallesDelCliente(@PathVariable(value = "id") Long id,Map<String,Object> modelo,RedirectAttributes flash) {
+		Cliente cliente = clienteService.findOne(id);
+		if(cliente == null) {
 			flash.addFlashAttribute("error", "El empleado no existe en la base de datos");
 			return "redirect:/listar";
 		}
 		
-		modelo.put("empleado",empleado);
-		modelo.put("titulo", "Detalles del empleado " + empleado.getNombre());
+		modelo.put("empleado",cliente);
+		modelo.put("titulo", "Detalles del empleado " + cliente.getNombre());
 		return "ver";
 	}
 	
@@ -65,11 +65,11 @@ public class ClienteController {
         //@GetMapping({"/","/listar",""})
 	public String listarEmpleados(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo) {
 		Pageable pageRequest = PageRequest.of(page, 4);
-		Page<Cliente> empleados = clienteService.findAll(pageRequest);
-		PageRender<Cliente> pageRender = new PageRender<>("/listar", empleados);
+		Page<Cliente> cliente = clienteService.findAll(pageRequest);
+		PageRender<Cliente> pageRender = new PageRender<>("/listar", cliente);
 		
-		modelo.addAttribute("titulo","Listado de empleados");
-		modelo.addAttribute("empleados",empleados);
+		modelo.addAttribute("titulo","Listado de clientes");
+		modelo.addAttribute("empleados",cliente);
 		modelo.addAttribute("page", pageRender);
 		
 		return "listar";
@@ -77,33 +77,33 @@ public class ClienteController {
 	
 	@GetMapping("/form")
 	public String mostrarFormularioDeRegistrarCliente(Map<String,Object> modelo) {
-		Cliente empleado = new Cliente();
-		modelo.put("empleado", empleado);
-		modelo.put("titulo", "Registro de empleados");
+		Cliente cliente = new Cliente();
+		modelo.put("empleado", cliente);
+		modelo.put("titulo", "Registro de clientes");
 		return "form";
 	}
 	
 	@PostMapping("/form")
-	public String guardarEmpleado(@Valid Cliente empleado,BindingResult result,Model modelo,RedirectAttributes flash,SessionStatus status) {
+	public String guardarCliente(@Valid Cliente cliente,BindingResult result,Model modelo,RedirectAttributes flash,SessionStatus status) {
 		if(result.hasErrors()) {
 			modelo.addAttribute("titulo", "Registro de cliente");
 			return "form";
 		}
 		
-		String mensaje = (empleado.getId() != null) ? "El cliente ha sido editato con exito" : "Cliente registrado con exito";
+		String mensaje = (cliente.getId() != null) ? "El cliente ha sido editato con exito" : "Cliente registrado con exito";
 		
-		clienteService.save(empleado);
+		clienteService.save(cliente);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/listar";
 	}
 	
 	@GetMapping("/form/{id}")
-	public String editarEmpleado(@PathVariable(value = "id") Long id,Map<String, Object> modelo,RedirectAttributes flash) {
-		Cliente empleado = null;
+	public String editarCliente(@PathVariable(value = "id") Long id,Map<String, Object> modelo,RedirectAttributes flash) {
+		Cliente cliente = null;
 		if(id > 0) {
-			empleado = clienteService.findOne(id);
-			if(empleado == null) {
+			cliente = clienteService.findOne(id);
+			if(cliente == null) {
 				flash.addFlashAttribute("error", "El ID del cliente no existe en la base de datos");
 				return "redirect:/listar";
 			}
@@ -113,8 +113,8 @@ public class ClienteController {
 			return "redirect:/listar";
 		}
 		
-		modelo.put("empleado",empleado);
-		modelo.put("titulo", "Edición de empleado");
+		modelo.put("empleado",cliente);
+		modelo.put("titulo", "Edición de cliente");
 		return "form";
 	}
 	
@@ -122,7 +122,7 @@ public class ClienteController {
 	public String eliminarCliente(@PathVariable(value = "id") Long id,RedirectAttributes flash) {
 		if(id > 0) {
 			clienteService.delete(id);
-			flash.addFlashAttribute("success", "Empleado eliminado con exito");
+			flash.addFlashAttribute("success", "Cliente eliminado con exito");
 		}
 		return "redirect:/listar";
 	}
