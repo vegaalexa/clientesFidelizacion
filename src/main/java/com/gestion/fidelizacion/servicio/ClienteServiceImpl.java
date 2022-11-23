@@ -17,19 +17,23 @@ public class ClienteServiceImpl implements ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+        
 	public List<Cliente> listAll(String palabraClave){
-            if(palabraClave != null){
-                return clienteRepository.findAll(palabraClave);
-            } 
+            System.out.println(palabraClave + "ingreso en cliente service");
             
+            if(palabraClave != null){
+                System.out.println(palabraClave + "ingreso en cliente service dentro del if");
+                return clienteRepository.findAll(palabraClave);  
+            } 
             return clienteRepository.findAll();
 	}
+     
         
-        @Override
 	@Transactional(readOnly = true)
         public List<Cliente> findAll(){
             return clienteRepository.findAll();
         }
+        
         
 	@Override
 	@Transactional(readOnly = true)
@@ -54,4 +58,11 @@ public class ClienteServiceImpl implements ClienteService {
 	public Cliente findOne(Long id) {
 		return clienteRepository.findById(id).orElse(null);
 	}
+        
+        /*Prueba de busqueda filtro cliente 
+        public List<Cliente> findByPalabra(String palabraClave){
+            return clienteRepository.findByPalabra(palabraClave);
+        }
+        */
+    
 }

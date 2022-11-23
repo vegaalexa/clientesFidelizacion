@@ -16,62 +16,63 @@
                         <a th:href="@{/form}" class="btn btn-primary">Agregar cliente</a>
 
                     </h4>
-                    <form class="row g-3" th:action="@{/listar}">
+                    <form class="row g-3" th:action="@{/listar/{palabraClave}}" method="get">
                         <div class="col-auto">
                             <label>Filtar: </label> 
                         </div>
                         <div class="col-auto">
-                            <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Digite el valor a buscar" required>
+                            <input id="txtSearch" type="text" name="palabraClave" class="form-control" th:value="${palabraClave}" placeholder="Digite el valor a buscar" required>
+                            <button type="submit" class="btn btn-info mb-2">Buscar</button>    
                         </div>
-                        <input type="submit" class="btn btn-info mb-2" value="Buscar">
-                            &nbsp;&nbsp;
+                        <div class="col-auto">
                             <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
-                                <div class="col-auto">
-                                    <a th:href="@{/exportarPDf}" class="btn btn-success">Exportar a PDF</a>
-                                </div>
-                                </form>
-                                <br>
+                        </div>
+                        <div class="col-auto">
+                            <a th:href="@{/exportarPDf}" class="btn btn-success">Exportar a PDF</a>
+                        </div>
+                    </form>
+                    <br>
 
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nombre</th>
-                                                <th>Apellido</th>
-                                                <th>Tipo.doc</th>
-                                                <th>Nro.doc</th>
-                                                <th>Nacionalidad</th>
-                                                <th>Email</th>
-                                                <th>Teléfono</th>
-                                                <th>Fecha nacimiento</th>
-                                                <th sec:authorize="hasRole('ADMIN')">Detalles</th>
-                                                <th sec:authorize="hasRole('ADMIN')">Editar</th>
-                                                <th sec:authorize="hasRole('ADMIN')">Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="cliente : ${cliente}">
-                                                <td th:text="${cliente.id}"></td>
-                                                <td th:text="${cliente.nombre}"></td>
-                                                <td th:text="${cliente.apellido}"></td>
-                                                <td th:text="${cliente.tipo_doc}"></td>
-                                                <td th:text="${cliente.nro_doc}"></td>
-                                                <td th:text="${cliente.nacionalidad}"></td>
-                                                <td th:text="${cliente.email}"></td>
-                                                <td th:text="${cliente.telefono}"></td>
-                                                <td th:text="${cliente.fecha_nac}"></td>
-                                                <td><a class="btn btn-info btn-sm"
-                                                       th:href="@{/ver/} + ${cliente.id}">Detalles</a></td>
-                                                <td sec:authorize="hasRole('ADMIN')"><a
-                                                        class="btn btn-warning btn-sm"
-                                                        th:href="@{/form/} + ${cliente.id}">Editar</a></td>
-                                                <td sec:authorize="hasRole('ADMIN')"><a
-                                                        class="btn btn-danger btn-sm"
-                                                        th:href="@{/eliminar/} + ${cliente.id}"
-                                                        onclick="return confirm('¿Estás seguro de eliminar al cliente?');">Eliminar</a></td>
-                                            </tr>
-                                        </tbody>
-                                        </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Tipo.doc</th>
+                            <th>Nro.doc</th>
+                            <th>Nacionalidad</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Fecha nacimiento</th>
+                            <th sec:authorize="hasRole('ADMIN')">Detalles</th>
+                            <th sec:authorize="hasRole('ADMIN')">Editar</th>
+                            <th sec:authorize="hasRole('ADMIN')">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cliente : ${cliente}">
+                            <td th:text="${cliente.id}"></td>
+                            <td th:text="${cliente.nombre}"></td>
+                            <td th:text="${cliente.apellido}"></td>
+                            <td th:text="${cliente.tipo_doc}"></td>
+                            <td th:text="${cliente.nro_doc}"></td>
+                            <td th:text="${cliente.nacionalidad}"></td>
+                            <td th:text="${cliente.email}"></td>
+                            <td th:text="${cliente.telefono}"></td>
+                            <td th:text="${cliente.fecha_nac}"></td>
+                            <td><a class="btn btn-info btn-sm"
+                                   th:href="@{/ver/} + ${cliente.id}">Detalles</a></td>
+                            <td sec:authorize="hasRole('ADMIN')"><a
+                                    class="btn btn-warning btn-sm"
+                                    th:href="@{/form/} + ${cliente.id}">Editar</a></td>
+                            <td sec:authorize="hasRole('ADMIN')"><a
+                                    class="btn btn-danger btn-sm"
+                                    th:href="@{/eliminar/} + ${cliente.id}"
+                                    onclick="return confirm('¿Estás seguro de eliminar al cliente?');">Eliminar</a></td>
+                        </tr>
+                    </tbody>
+                    </table>
                                         <nav th:replace="paginator-nav :: paginator"></nav>
                                         </div>
                                         </div>

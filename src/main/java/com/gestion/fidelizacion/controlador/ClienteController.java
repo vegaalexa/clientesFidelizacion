@@ -63,32 +63,32 @@ public class ClienteController {
 		return "ver";
 	}
 	
-	/*@GetMapping({"/listar",""})
-        //@GetMapping({"/","/listar",""})
-        //public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo) {
-	public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo,@Param("palabraClave") String palabraClave) {
+	@GetMapping({"/listar",""})
+        public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo) {
 		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<Cliente> cliente = clienteService.findAll(pageRequest);
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", cliente);
+                
 		
-                List<Cliente> listaClientes = clienteService.listAll(palabraClave);
-             
+                List<Cliente> listaClientes = clienteService.findAll();
+                
 		modelo.addAttribute("titulo","Listado de clientes");
-		modelo.addAttribute("cliente",cliente);
-                modelo.addAttribute("palabraClave",palabraClave);
+		modelo.addAttribute("cliente",listaClientes);
+                //modelo.addAttribute("palabraClave",palabraClave);
 		modelo.addAttribute("page", pageRender);
 		
 		return "listar";
-	}*/
+	}
         
-        @GetMapping({"/listar",""})
-	public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo,@Param("palabraClave") String palabraClave) {
+        @GetMapping({"/listar/{palabraClave}",""})
+        public String listarClientesFiltrados(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo,@Param ("palabraClave") String palabraClave) {
 		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<Cliente> cliente = clienteService.findAll(pageRequest);
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", cliente);
-		
+                
+		System.out.println(palabraClave + "Ingresa a controlador");
                 List<Cliente> listaClientes = clienteService.listAll(palabraClave);
-             
+                
 		modelo.addAttribute("titulo","Listado de clientes");
 		modelo.addAttribute("cliente",listaClientes);
                 modelo.addAttribute("palabraClave",palabraClave);
@@ -96,7 +96,31 @@ public class ClienteController {
 		
 		return "listar";
 	}
-	
+        
+        /*
+        @GetMapping({"/listar",""})
+	public String listarClientes(@RequestParam(name = "page",defaultValue = "0") int page, Model modelo,String palabraClave) {
+		Pageable pageRequest = PageRequest.of(page, 4);
+		Page<Cliente> cliente = clienteService.findAll(pageRequest);
+		PageRender<Cliente> pageRender = new PageRender<>("/listar", cliente);
+		System.out.println(palabraClave);
+                
+                
+                if(palabraClave != null){
+                    modelo.addAttribute("cliente",clienteService.findAll());
+                    System.out.println(palabraClave + "ingreso al if de listar ");
+                } 
+                
+                List<Cliente> listaClientes = clienteService.listAll(palabraClave);
+                System.out.println(palabraClave + "ingreso a controlador ");
+                modelo.addAttribute("palabraClave",palabraClave);
+		modelo.addAttribute("titulo","Listado de clientes");
+		modelo.addAttribute("cliente",listaClientes);
+		modelo.addAttribute("page", pageRender);
+		
+		return "listar";
+	}
+	*/
 	@GetMapping("/form")
 	public String mostrarFormularioDeRegistrarCliente(Map<String,Object> modelo) {
 		Cliente cliente = new Cliente();

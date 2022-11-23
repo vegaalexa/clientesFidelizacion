@@ -11,6 +11,7 @@ public interface ClienteService {
         //para listar todos los clientes
 	public List<Cliente> listAll(String palabraClave);
         
+     
         public List<Cliente> findAll();
         
         /*para la paginacion*/
@@ -21,4 +22,6 @@ public interface ClienteService {
 	public Cliente findOne(Long id);
 
 	public void delete(Long id);
+        
+        //public List<Cliente> findByPalabra(String palabraClave);
 }
