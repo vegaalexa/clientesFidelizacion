@@ -29,6 +29,7 @@ import com.gestion.fidelizacion.servicio.UsoPuntosCabService;
 import com.gestion.fidelizacion.servicio.PremioService;
 import com.gestion.fidelizacion.servicio.UsoPuntosDetService;
 import java.util.List;
+import org.springframework.data.domain.Sort;
 
 @Controller
 public class UsoPuntosCabController {
@@ -153,16 +154,22 @@ public class UsoPuntosCabController {
                 Cliente listadoClientes = clienteService.findOne(id_cliente);
                 modelo.put("listadoClientes",listadoClientes);
                 //Bolsa
+                //List<BolsaPuntos> listBolsapuntos = bolsapuntosService.findAll();
+                //BolsaPuntos listBolsapuntos = bolsapuntosService.findOne(id_cliente);
+                System.out.println("---------############CLIENTE A FILTRAR: "+id_cliente);
+                //Cliente clienteFiltrar = new Cliente();
+                
                 List<BolsaPuntos> listBolsapuntos = bolsapuntosService.findAll();
-                //BolsaPuntos listBolsapuntos = bolsapuntosService.findOne(id_cliente); 
+                
+                
+                //List<BolsaPuntos> listBolsapuntos;
+            //listBolsapuntos = bolsapuntosService.findAll(Sort.by(Sort.Direction.DESC, parametro));
+        
                 modelo.put("listBolsapuntos",listBolsapuntos);
-                System.out.println("---------############>: "+id);
                 
                 UsoPuntosDet usopuntosdet = new UsoPuntosDet();
                 usopuntosdet.setUso_punto_cab_id(usopuntoscab);
-                System.out.println("---------############>: Uso_punto_cab_id:"+ usopuntosdet.getUso_punto_cab_id().getId());
-                System.out.println("---------############>: Puntos_requeridos:"+ usopuntosdet.getUso_punto_cab_id().getPremio().getPuntos_requeridos());
-                
+              
                 modelo.put("usopuntosdet",usopuntosdet);
 		modelo.put("titulo", "Cargar detalles de canje");
 		return "cargardetForm";
