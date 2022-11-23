@@ -67,12 +67,32 @@ public class UsoPuntosCabController {
 		Pageable pageRequest = PageRequest.of(page, 4);
                 List<Cliente> listadoClientes = clienteService.findAll(); 
                 modelo.addAttribute("listadoClientes",listadoClientes);
+                
 		Page<UsoPuntosCab> usopuntoscab = usopuntoscabService.findAll(pageRequest);
               
 		PageRender<UsoPuntosCab> pageRender = new PageRender<>("/usopuntoscabListar", usopuntoscab);
 		          
 		modelo.addAttribute("titulo","Listado de uso de puntos");
 		modelo.addAttribute("usopuntoscab",usopuntoscab);
+		modelo.addAttribute("page", pageRender);
+		
+		return "usopuntoscabListar";
+	}
+        
+        //Metodo para listar el filtrado
+        @GetMapping({"/usopuntoscabListar/{palabraClave}"})
+	public String listarFiltroUsopuntosCab(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo,@Param ("palabraClave") String palabraClave) {
+		Pageable pageRequest = PageRequest.of(page, 4);
+                Page<UsoPuntosCab> usopuntoscab = usopuntoscabService.findAll(pageRequest); 
+                PageRender<UsoPuntosCab> pageRender = new PageRender<>("/usopuntoscabListar", usopuntoscab);
+                System.out.println(palabraClave + "ingreso al controlador");
+                
+                List<UsoPuntosCab> listadocabecera = usopuntoscabService.listAll(palabraClave);
+                //modelo.addAttribute("listadocabecera",listadocabecera);
+                
+		modelo.addAttribute("titulo","Listado de uso de puntos");
+		modelo.addAttribute("usopuntoscab",listadocabecera);
+                modelo.addAttribute("palabraClave",palabraClave);
 		modelo.addAttribute("page", pageRender);
 		
 		return "usopuntoscabListar";
@@ -166,10 +186,13 @@ public class UsoPuntosCabController {
             //listBolsapuntos = bolsapuntosService.findAll(Sort.by(Sort.Direction.DESC, parametro));
         
                 modelo.put("listBolsapuntos",listBolsapuntos);
+                System.out.println("---------############>: "+id);
                 
                 UsoPuntosDet usopuntosdet = new UsoPuntosDet();
                 usopuntosdet.setUso_punto_cab_id(usopuntoscab);
-              
+                System.out.println("---------############>: Uso_punto_cab_id:"+ usopuntosdet.getUso_punto_cab_id().getId());
+                System.out.println("---------############>: Puntos_requeridos:"+ usopuntosdet.getUso_punto_cab_id().getPremio().getPuntos_requeridos());
+                
                 modelo.put("usopuntosdet",usopuntosdet);
 		modelo.put("titulo", "Cargar detalles de canje");
 		return "cargardetForm";
