@@ -1,4 +1,3 @@
-
 package com.gestion.fidelizacion.entidades;
 
 import java.util.Date;
@@ -18,44 +17,44 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "bolsa_puntos")
 public class BolsaPuntos {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotNull
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha_asignacion_puntaje;
-    
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha_caducidad_puntaje;
-    
+
     private int puntaje_asignado;
 
     private int puntaje_utilizado;
-    
+
     private int saldo_puntos;
-    
+
     @NotNull
     private double monto_operacion;
-    
+
     /*Relacion muchos a uno con la entidad Cliente*/
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    public Cliente cliente;
 
     /*Relacion muchos a uno con la entidad Vencimiento*/
-    @ManyToOne
+ /*@ManyToOne
     @JoinColumn(name = "vencimiento_id")
     private BolsaPuntos bolsaPuntos;
-    
+     */
     public BolsaPuntos() {
         super();
     }
 
-    public BolsaPuntos(Long id, Date fecha_asignacion_puntaje, Date fecha_caducidad_puntaje, int puntaje_asignado, int puntaje_utilizado, int saldo_puntos, double monto_operacion, Cliente cliente, BolsaPuntos bolsaPuntos) {
+    /*public BolsaPuntos(Long id, Date fecha_asignacion_puntaje, Date fecha_caducidad_puntaje, int puntaje_asignado, int puntaje_utilizado, int saldo_puntos, double monto_operacion, Cliente cliente, BolsaPuntos bolsaPuntos) {
         this.id = id;
         this.fecha_asignacion_puntaje = fecha_asignacion_puntaje;
         this.fecha_caducidad_puntaje = fecha_caducidad_puntaje;
@@ -64,10 +63,21 @@ public class BolsaPuntos {
         this.saldo_puntos = saldo_puntos;
         this.monto_operacion = monto_operacion;
         this.cliente = cliente;
-        this.bolsaPuntos = bolsaPuntos;
+        //this.bolsaPuntos = bolsaPuntos;
+    }*/
+    public BolsaPuntos(Long id, Date fecha_asignacion_puntaje, Date fecha_caducidad_puntaje, int puntaje_asignado, int puntaje_utilizado, int saldo_puntos, double monto_operacion, Cliente cliente) {
+        this.id = id;
+        this.fecha_asignacion_puntaje = fecha_asignacion_puntaje;
+        this.fecha_caducidad_puntaje = fecha_caducidad_puntaje;
+        this.puntaje_asignado = puntaje_asignado;
+        this.puntaje_utilizado = puntaje_utilizado;
+        this.saldo_puntos = saldo_puntos;
+        this.monto_operacion = monto_operacion;
+        this.cliente = cliente;
+        //this.bolsaPuntos = bolsaPuntos;
     }
 
-    public BolsaPuntos(Date fecha_asignacion_puntaje, Date fecha_caducidad_puntaje, int puntaje_asignado, int puntaje_utilizado, int saldo_puntos, double monto_operacion, Cliente cliente, BolsaPuntos bolsaPuntos) {
+    /*public BolsaPuntos(Date fecha_asignacion_puntaje, Date fecha_caducidad_puntaje, int puntaje_asignado, int puntaje_utilizado, int saldo_puntos, double monto_operacion, Cliente cliente, BolsaPuntos bolsaPuntos) {
         this.fecha_asignacion_puntaje = fecha_asignacion_puntaje;
         this.fecha_caducidad_puntaje = fecha_caducidad_puntaje;
         this.puntaje_asignado = puntaje_asignado;
@@ -76,6 +86,15 @@ public class BolsaPuntos {
         this.monto_operacion = monto_operacion;
         this.cliente = cliente;
         this.bolsaPuntos = bolsaPuntos;
+    }*/
+    public BolsaPuntos(Date fecha_asignacion_puntaje, Date fecha_caducidad_puntaje, int puntaje_asignado, int puntaje_utilizado, int saldo_puntos, double monto_operacion, Cliente cliente) {
+        this.fecha_asignacion_puntaje = fecha_asignacion_puntaje;
+        this.fecha_caducidad_puntaje = fecha_caducidad_puntaje;
+        this.puntaje_asignado = puntaje_asignado;
+        this.puntaje_utilizado = puntaje_utilizado;
+        this.saldo_puntos = saldo_puntos;
+        this.monto_operacion = monto_operacion;
+        this.cliente = cliente;
     }
 
     public Long getId() {
@@ -142,12 +161,12 @@ public class BolsaPuntos {
         this.cliente = cliente;
     }
 
-    public BolsaPuntos getBolsaPuntos() {
+    /*public BolsaPuntos getBolsaPuntos() {
         return bolsaPuntos;
     }
 
     public void setBolsaPuntos(BolsaPuntos bolsaPuntos) {
         this.bolsaPuntos = bolsaPuntos;
     }
-   
+     */
 }
