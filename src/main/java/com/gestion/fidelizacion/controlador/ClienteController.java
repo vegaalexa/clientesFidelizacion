@@ -173,7 +173,7 @@ public class ClienteController {
 		return "redirect:/listar";
 	}
 	
-	@GetMapping("/exportarPDf")
+	@GetMapping("/clienteExportarPDf")
 	public void exportarListadoDeClientesEnPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		
