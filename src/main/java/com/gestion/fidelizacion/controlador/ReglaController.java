@@ -66,16 +66,15 @@ public class ReglaController {
             System.out.println("------->LIMITE INFERIOR: "+ regla.getLimite_inferior());
             Integer limite_superior;
             Integer limite_inferior;
-            Integer cant_puntos_calculados = (int)((regla.getLimite_superior() - regla.getLimite_inferior())/regla.getMonto_por_punto());
+            //Integer cant_puntos_calculados = (int)((regla.getLimite_superior() - regla.getLimite_inferior())/regla.getMonto_por_punto());
             
-            System.out.println("------->Puntos por compra: "+ cant_puntos_calculados);
 		if(result.hasErrors()) {
 			modelo.addAttribute("titulo", "Registro de reglas");
 			return "reglaForm";
 		}
 		
 		String mensaje = (regla.getId() != null) ? "La regla ha sido editada con exito" : "Regla registrado con exito";
-		regla.setPuntos_calculados(cant_puntos_calculados);
+		//regla.setPuntos_calculados(cant_puntos_calculados);
                 
 		reglaService.save(regla);
 		status.setComplete();
