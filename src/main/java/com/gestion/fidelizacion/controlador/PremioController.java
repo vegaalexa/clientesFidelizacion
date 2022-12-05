@@ -1,5 +1,6 @@
 package com.gestion.fidelizacion.controlador;
 
+import com.gestion.fidelizacion.entidades.Cliente;
 import java.util.Map;
 import javax.validation.Valid;
 
@@ -20,6 +21,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gestion.fidelizacion.entidades.Premio;
 import com.gestion.fidelizacion.util.paginacion.PageRender;
 import com.gestion.fidelizacion.servicio.PremioService;
+import com.gestion.fidelizacion.util.reportes.ClienteExporterPDF;
+import com.gestion.fidelizacion.util.reportes.PremioExporterPDF;
+import com.lowagie.text.DocumentException;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class PremioController {
@@ -105,4 +115,21 @@ public class PremioController {
 		return "redirect:/premioListar";
 	}
 	
+        @GetMapping("/premioExportarPDf")
+	public void exportarListadoDePremiosEnPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String fechaActual = dateFormatter.format(new Date());
+		
+		String cabecera = "Content-Disposition";
+		String valor = "attachment; filename=Premios_" + fechaActual + ".pdf";
+		
+		response.setHeader(cabecera, valor);
+		
+		List<Premio> premio = premioService.findAll();
+		
+		PremioExporterPDF exporter = new PremioExporterPDF(premio);
+		exporter.exportar(response);
+	}
 }
