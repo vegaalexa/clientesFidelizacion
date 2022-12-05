@@ -55,36 +55,28 @@ public class UsoPuntosDetController {
 		return "usopuntosdetVer";
 	}
 	
-        @GetMapping({"/usopuntosdetListar"})
-	public String listarUsopuntosDet(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo) {
+        @GetMapping({"/usopuntosdetListar/{id}"})
+	public String listarUsopuntosDet(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo, @PathVariable(value = "id") Long id) {
 		Pageable pageRequest = PageRequest.of(page, 4);
-		Page<UsoPuntosDet> usopuntosdet = usopuntosdetService.findAll(pageRequest);
-              
-		PageRender<UsoPuntosDet> pageRender = new PageRender<>("/usopuntosdetListar", usopuntosdet);
+                UsoPuntosCab usopuntoscab = usopuntoscabService.findOne(id);
+                usopuntoscab.setId(id);
+                
+                UsoPuntosDet usopuntosdet = new UsoPuntosDet();
+                usopuntosdet.setUso_punto_cab_id(usopuntoscab);
+                System.out.println("---------------->ID DE LA CABECERA:"+usopuntosdet.getUso_punto_cab_id().getId());
+                /*Obs, trae bien el dato a filtrar pero el parametro por el que espera se filtre debe ser la columna uso_punto_cab_id, no id como 
+                está actualmente*/
+		//UsoPuntosDet usopuntosdetListar = usopuntosdetService.findOne(usopuntoscab);//findOne(usopuntosdet.getUso_punto_cab_id());
+              //Page<UsoPuntosDet> usopuntosdet = usopuntosdetService.findAll(pageRequest);
+		//PageRender<UsoPuntosDet> pageRender = new PageRender<>("/usopuntosdetListar", usopuntosdet);
 		
 		modelo.addAttribute("titulo","Listado de uso de puntos detalle");
-		modelo.addAttribute("usopuntosdet",usopuntosdet);
-		modelo.addAttribute("page", pageRender);
+		//modelo.addAttribute("usopuntosdet",usopuntosdetListar);
+		//modelo.addAttribute("page", pageRender);
 		
 		return "usopuntosdetListar";
 	}
         
-        
-        /*@GetMapping("/usopuntosdetForm")
-	public String mostrarFormularioDeRegistrarUsoPuntosDet(Model modelo, Map<String,Object> modelomap) {
-            //Para listar y seleccionar premios
-            //List<UsoPuntosDet> listadoUsopuntoscab = usopuntoscabService.findAll(); //no es asi!!!
-            //modelo.addAttribute("listadoPremios",listadoPremios);
-            //Para listar y seleccionar clientes
-            //List<Cliente> listadoClientes = clienteService.findAll(); 
-            //modelo.addAttribute("listadoClientes",listadoClientes);
-            
-            UsoPuntosDet usopuntosdet = new UsoPuntosDet();
- 
-            modelomap.put("usopuntosdet",usopuntosdet);
-            modelo.addAttribute("titulo", "Registro de uso de puntajes detalle");
-            return "usopuntosdetForm";
-	}*/
         @GetMapping("/cargardetForm/{id}")
         public String cargarUsoPuntosDetalle(Model modelo, @PathVariable(value = "id") Long id, RedirectAttributes flash) {
             System.out.println("---->LLEGOOO AL FORMULARIO PARA CARGAR DETALLE!!!");
@@ -114,22 +106,6 @@ public class UsoPuntosDetController {
 		modelo.addAttribute("titulo", "Registro de detalles");
 		return "cargardetForm";
 	}
-	
-	/*@PostMapping("/cargardetForm")
-	public String guardarUsopuntosDet(@Valid UsoPuntosDet usopuntosdet,BindingResult result,Model modelo,RedirectAttributes flash,SessionStatus status) {
-              
-                if(result.hasErrors()) {
-			modelo.addAttribute("titulo", "Registro de uso de puntos detalle");
-			return "usopuntosdetForm";
-		}
-		
-		String mensaje = (usopuntosdet.getId() != null) ? "Editato con exito" : "Registrado con exito";
-		
-		usopuntosdetService.save(usopuntosdet);
-		status.setComplete();
-		flash.addFlashAttribute("success", mensaje);
-		return "redirect:/usopuntoscabListar";
-	}*/
 	
 	@GetMapping("/usopuntosdetForm/{id}")
 	public String editarUsopuntosdet(@PathVariable(value = "id") Long id,Map<String, Object> modelo,RedirectAttributes flash) {
