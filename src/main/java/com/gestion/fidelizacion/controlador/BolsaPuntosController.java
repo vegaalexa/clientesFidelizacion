@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gestion.fidelizacion.util.paginacion.PageRender;
 import java.util.List;
+import org.springframework.data.repository.query.Param;
 
 @Controller
 public class BolsaPuntosController {
@@ -157,4 +158,26 @@ public class BolsaPuntosController {
 		exporter.exportar(response);
 	}
         */
+        
+        //Metodo para listar el filtrado
+        @GetMapping({"/bolsaPuntosListar/{palabraClave}"})
+	public String listarFiltroBolsaPuntos(@RequestParam(name = "page",defaultValue = "0") int page,Model modelo,@Param ("palabraClave") String palabraClave) {
+		Pageable pageRequest = PageRequest.of(page, 4);
+                Page<BolsaPuntos> bolsapuntos = bolsapuntosService.findAll(pageRequest); 
+                PageRender<BolsaPuntos> pageRender = new PageRender<>("/bolsaPuntosListar", bolsapuntos);
+                
+                System.out.println(palabraClave + "ingreso al controlador");
+                
+                List<BolsaPuntos> listadobolsa = bolsapuntosService.listAll(palabraClave);
+                //modelo.addAttribute("listadocabecera",listadocabecera);
+                
+		modelo.addAttribute("titulo","Listado de bolsa puntos");
+		modelo.addAttribute("bolsapuntos",listadobolsa);
+                modelo.addAttribute("palabraClave",palabraClave);
+		modelo.addAttribute("page", pageRender);
+		
+		return "bolsaPuntosListar";
+	}
+        
+       
 }
