@@ -29,7 +29,7 @@ import com.gestion.fidelizacion.servicio.UsoPuntosCabService;
 import com.gestion.fidelizacion.servicio.PremioService;
 import com.gestion.fidelizacion.servicio.UsoPuntosDetService;
 import java.util.List;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 
 @Controller
 public class UsoPuntosCabController {
@@ -168,28 +168,17 @@ public class UsoPuntosCabController {
 	public String cargarDetalle(@PathVariable(value = "id") Long id,@PathVariable(value = "id_cliente") Long id_cliente,Map<String, Object> modelo,RedirectAttributes flash) {
 		UsoPuntosCab usopuntoscab = usopuntoscabService.findOne(id);
                 usopuntoscab.setId(id);
-		
-                //Para listar y seleccionar clientes
-                //List<Cliente> listadoClientes = clienteService.findAll(); 
+	
                 Cliente listadoClientes = clienteService.findOne(id_cliente);
                 modelo.put("listadoClientes",listadoClientes);
                 //Bolsa
-                //List<BolsaPuntos> listBolsapuntos = bolsapuntosService.findAll();
-                //BolsaPuntos listBolsapuntos = bolsapuntosService.findOne(id_cliente);
-                System.out.println("---------############CLIENTE A FILTRAR: "+id_cliente);
-                //Cliente clienteFiltrar = new Cliente();
-                
                 List<BolsaPuntos> listBolsapuntos = bolsapuntosService.findAll();
-                
-                
-                //List<BolsaPuntos> listBolsapuntos;
-            //listBolsapuntos = bolsapuntosService.findAll(Sort.by(Sort.Direction.DESC, parametro));
-        
                 modelo.put("listBolsapuntos",listBolsapuntos);
                 System.out.println("---------############>: "+id);
                 
                 UsoPuntosDet usopuntosdet = new UsoPuntosDet();
                 usopuntosdet.setUso_punto_cab_id(usopuntoscab);
+
                 System.out.println("---------############>: Uso_punto_cab_id:"+ usopuntosdet.getUso_punto_cab_id().getId());
                 System.out.println("---------############>: Puntos_requeridos:"+ usopuntosdet.getUso_punto_cab_id().getPremio().getPuntos_requeridos());
                 
